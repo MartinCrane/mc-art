@@ -148,7 +148,7 @@ class App extends Component {
 
         <div className="go">
              <ConnectedReactAudioPlayer
-               src="https://s3.amazonaws.com/www.martincrane.net/audio/maximal-2.m4a"
+               src="https://s3.amazonaws.com/www.martincrane.net/audio/maximal-1.m4a"
                ref="player"
                controls
                >

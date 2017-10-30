@@ -29,7 +29,7 @@
 }
 .meterBlur{
   position: absolute;
-  font-size: 2em;
+  font-size: 1.5em;
   -webkit-transition: all .09s;
      -moz-transition: all .09s;
       -ms-transition: all .09s;
