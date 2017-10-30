@@ -28,7 +28,7 @@
           transition-timing-function: ease-out;
 }
 .meterBlur{
-  position: absolute;
+  position: relative;
 
   -webkit-transition: all .01s;
      -moz-transition: all .01s;
@@ -39,6 +39,23 @@
      -moz-transition-timing-function: ease-out;
        -o-transition-timing-function: ease-out;
           transition-timing-function: ease-out;
+}
+.meterContainer {
+  left: 50%;
+  position: absolute;
+}
+.back {
+  -webkit-transition: all .5s;
+     -moz-transition: all .5s;
+      -ms-transition: all .5s;
+       -o-transition: all .5s;
+          transition: all .5s;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -20;
+  background-color: black;
+  opacity: .9;
 }
 .blurScape {
   width: 100%;

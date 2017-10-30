@@ -20,6 +20,7 @@ class App extends Component {
       frequencyData: null
     }
     this.elementFloat = this.elementFloat.bind(this)
+    this.invert = this.invert.bind(this)
   }
 
   elementFloat() {
@@ -27,6 +28,22 @@ class App extends Component {
       left: `${this.state.number}px`,
       top: `${this.state.number *2}px`,
       display: 'relative'
+    }
+  }
+
+  invert(number, invert) {
+    let inverse = (number - 128)*10
+    if (inverse > 100) {
+      inverse = 100
+    } else if (inverse < 0) {
+      inverse = 0
+    } else {
+      inverse
+    }
+    if (invert == 1) {
+      return inverse
+    } else {
+      return 100 - inverse
     }
   }
 
@@ -65,7 +82,7 @@ class App extends Component {
     top: top,
     low: low
   })
-}, 3000)
+  }, 3000)
 
   }
 
@@ -74,77 +91,9 @@ class App extends Component {
 
   render() {
     return (
-      <div className="drift">
+      <div className="drift" >
         <header className="App-header">
         </header>
-        <div className="blurScape" style={{
-          "top": "0%",
-          "backgroundImage":`url('/image/t2.jpg')`,
-          "filter": `invert(${(this.props.audioProfile[5] - 128)*15}%)`
-          }}>
-
-        </div>
-        <div className="blurScape"style={{
-          "top": "10%",
-          "backgroundImage":`url('/image/t2.jpg')`,
-          "filter": `invert(${(this.props.audioProfile[10] - 128)*10}%)`
-          }}>
-
-        </div>
-        <div className="blurScape"style={{
-          "top": "20%",
-          "backgroundImage":`url('/image/t2.jpg')`,
-          "filter": `invert(${(this.props.audioProfile[20] - 128)*20}%)`
-          }}>
-
-        </div>
-        <div className="blurScape"style={{
-          "top": "30%",
-          "backgroundImage":`url('/image/t2.jpg')`,
-          "filter": `invert(${(this.props.audioProfile[30] - 128)*20}%)`
-          }}>
-
-        </div>
-        <div className="blurScape"style={{
-          "top": "40%",
-          "backgroundImage":`url('/image/t2.jpg')`,
-          "filter": `invert(${(this.props.audioProfile[35] - 128)*20}%)`
-          }}>
-        </div>
-        <div className="blurScape"style={{
-          "top": "50%",
-          "backgroundImage":`url('/image/t2.jpg')`,
-          "filter": `invert(${(this.props.audioProfile[40] - 128)*20}%)`,
-
-          }}>
-        </div>
-        <div className="blurScape"style={{
-          "top": "60%",
-          "backgroundImage":`url('/image/t2.jpg')`,
-          "filter": `invert(${(this.props.audioProfile[45] - 128)*20}%)`
-          }}>
-        </div>
-        <div className="blurScape"style={{
-          "top": "70%",
-          "backgroundImage":`url('/image/t2.jpg')`,
-          "filter": `invert(${(this.props.audioProfile[50] - 128)*20}%)`
-          }}>
-        </div>
-        <div className="blurScape"style={{
-          "top": "80%",
-          "backgroundImage":`url('/image/t2.jpg')`,
-          "filter": `invert(${(this.props.audioProfile[55] - 128)*20}%)`
-          }}>
-        </div>
-        <div className="blurScape"style={{
-          "top": "90%",
-          "backgroundImage":`url('/image/t2.jpg')`,
-          "filter": `invert(${(this.props.audioProfile[60] - 128)*20}%)`
-
-          }}>
-        </div>
-
-
         <div className="go">
              <ConnectedReactAudioPlayer
                src="https://s3.amazonaws.com/www.martincrane.net/audio/maximal-1.m4a"
@@ -152,19 +101,25 @@ class App extends Component {
                controls
                >
             </ConnectedReactAudioPlayer>
-
         </div>
-
-
           <img className="slowImage"
             src="/image/t4.jpg" style={{
-            "filter": `invert(${(this.props.audioProfile[40] - 128)*10}%)`
+            "display":"none",
+            "filter": `invert(${this.invert(this.props.audioProfile[40], 1)}%)`
           }}></img>
-        <div className="meterBlur">
-          {wordsString.slice(this.state.slowTicker, this.state.slowTicker+64).split("").map((letter, index) => <div key={index} className="meterBlur" style={{"left":`${this.props.audioProfile[index] * 10 -720}px`, "top":`${index*30}px`, "position":"absolute" }}> <h1>{letter}</h1></div>)}
+        <div className="meterContainer" style={{
+        "filter": `invert(${this.invert(this.props.audioProfile[40], 1)}%)`
+      }}>
+          {wordsString.slice(this.state.slowTicker, this.state.slowTicker+64).split("").map((letter, index) => <div key={index} className="meterBlur" style={{"left":`${this.props.audioProfile[index] * 10 - 1280}px`, "top":`${index*30}px`, "position":"absolute" }}> <h1>{letter}</h1></div>)}
         </div>
 
-        <div>
+        <div style={{
+            "filter": `invert(${this.invert(this.props.audioProfile[40], 0)}%)`
+          }}>
+        </div>
+        <div className='back' style={{
+            "filter": `invert(${this.invert(this.props.audioProfile[40], 0)}%)`
+          }}>
 
         </div>
       </div>
