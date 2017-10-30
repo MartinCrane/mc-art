@@ -29,12 +29,12 @@
 }
 .meterBlur{
   position: absolute;
-  font-size: 1.5em;
-  -webkit-transition: all .09s;
-     -moz-transition: all .09s;
-      -ms-transition: all .09s;
-       -o-transition: all .09s;
-          transition: all .09s;
+
+  -webkit-transition: all .01s;
+     -moz-transition: all .01s;
+      -ms-transition: all .01s;
+       -o-transition: all .01s;
+          transition: all .01s;
   -webkit-transition-timing-function: ease-out;
      -moz-transition-timing-function: ease-out;
        -o-transition-timing-function: ease-out;

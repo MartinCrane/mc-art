@@ -108,8 +108,7 @@ class App extends Component {
         <div className="blurScape"style={{
           "top": "40%",
           "backgroundImage":`url('/image/t2.jpg')`,
-          "filter": `invert(${(this.props.audioProfile[35] - 128)*20}%)`,
-          "transform" : `rotate(${this.props.audioProfile[30] - 128}deg)`
+          "filter": `invert(${(this.props.audioProfile[35] - 128)*20}%)`
           }}>
         </div>
         <div className="blurScape"style={{
@@ -162,7 +161,7 @@ class App extends Component {
             "filter": `invert(${(this.props.audioProfile[40] - 128)*10}%)`
           }}></img>
         <div className="meterBlur">
-          {wordsString.slice(this.state.slowTicker, this.state.slowTicker+64).split("").map((letter, index) => <div key={index} className="meterBlur" style={{"left":`${this.props.audioProfile[index] * 10 -720}px`, "top":`${index*40}px`, "position":"absolute" }}> <h1>{letter}</h1></div>)}
+          {wordsString.slice(this.state.slowTicker, this.state.slowTicker+64).split("").map((letter, index) => <div key={index} className="meterBlur" style={{"left":`${this.props.audioProfile[index] * 10 -720}px`, "top":`${index*30}px`, "position":"absolute" }}> <h1>{letter}</h1></div>)}
         </div>
 
         <div>
