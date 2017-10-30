@@ -70,19 +70,17 @@ class ReactAudioPlayer extends React.Component {
     audioSrc.connect(analyser)
     audioSrc.connect(audioCtx.destination)
 
-    analyser.fftSize = 32;
+    analyser.fftSize = 64;
     var bufferLength = analyser.fftSize;
     var dataArray = new Uint8Array(bufferLength);
     analyser.minDecibels = -90;
     analyser.maxDecibels = -10;
     analyser.smoothingTimeConstant = 0.85;
-    analyser.getByteTimeDomainData(dataArray);
 
     setInterval(() => {
-    analyser.getByteTimeDomainData(dataArray)
-      console.log(dataArray)
+      analyser.getByteTimeDomainData(dataArray)
       this.props.updateFreq(dataArray)
-  }, 30)
+    }, 30)
 
 
   }
