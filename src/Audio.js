@@ -80,7 +80,7 @@ class ReactAudioPlayer extends React.Component {
     setInterval(() => {
       analyser.getByteTimeDomainData(dataArray)
       this.props.updateFreq(dataArray)
-    }, 30)
+    }, 32)
   }
 
   /**

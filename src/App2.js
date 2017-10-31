@@ -28,7 +28,7 @@ class App extends Component {
       random: Math.floor( (Math.random()*100)+1),
       ticker: this.state.ticker + (Math.random() * interval)
       })
-    }, 40)
+    }, 32)
   }
 
   render() {
@@ -61,7 +61,6 @@ class App extends Component {
             "filter" : `blur(${((this.props.audioProfile[25]-128)*10)+5}px)`,
             "left" : "50%",
             "marginLeft" : "-350px",
-
           }}>
         </div>
         <div className="slow2" style={{
@@ -71,7 +70,6 @@ class App extends Component {
           }}>
         </div>
       </div>
-
     );
   }
 }
