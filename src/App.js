@@ -17,7 +17,8 @@ class App extends Component {
       top: 0,
       low: 128,
       slowProfile: new Uint8Array(64),
-      frequencyData: null
+      frequencyData: null,
+      bgFade:0
     }
     this.elementFloat = this.elementFloat.bind(this)
     this.invert = this.invert.bind(this)
@@ -49,41 +50,19 @@ class App extends Component {
 
   componentDidMount() {
     var interval = .00001
-    var direction = 0
+    setInterval(() => {
+      this.setState({
+        random: Math.floor( (Math.random()*100)+1),
+        ticker: this.state.ticker + (Math.random() * interval)
+      })
+    }, 30)
 
     setInterval(() => {
-    if (this.state.ticker > .001 && direction == 0) {
-      interval = interval *-1
-      direction = 1
-    } else if (this.state.ticker < .0001 && direction == 1) {
-      interval = interval * -1
-      direction = 0
-    } else {
-    }
-    this.setState({
-      random: Math.floor( (Math.random()*100)+1),
-      ticker: this.state.ticker + (Math.random() * interval)
-    })
-  }, 30)
-
-  setInterval(() => {
-    let top = this.state.top
-    if (this.props.audioProfile[20] > top ) {
-      top = this.props.audioProfile[20]
-    }
-    let low = this.state.low
-    if (this.props.audioProfile[20] < low ) {
-      low = this.props.audioProfile[20]
-    }
-  this.setState({
-    slowRandom: Math.floor( (Math.random()*100)+1),
-    slowTicker: this.state.slowTicker + 1,
-    slowProfile: this.props.audioProfile,
-    top: top,
-    low: low
-  })
-  }, 3000)
-
+      this.setState({
+        slowTicker: this.state.slowTicker + 1,
+        bgFade: this.props.audioProfile[40]
+        })
+    }, 300)
   }
 
 
@@ -95,12 +74,12 @@ class App extends Component {
         <header className="App-header">
         </header>
         <div className="go">
-             <ConnectedReactAudioPlayer
-               src="https://s3.amazonaws.com/www.martincrane.net/audio/maximal-1.m4a"
-               ref="player"
-               controls
-               >
-            </ConnectedReactAudioPlayer>
+           <ConnectedReactAudioPlayer
+             src="https://s3.amazonaws.com/www.martincrane.net/audio/maximal-1.m4a"
+             ref="player"
+             controls
+             >
+          </ConnectedReactAudioPlayer>
         </div>
           <img className="slowImage"
             src="/image/t4.jpg" style={{
@@ -108,19 +87,18 @@ class App extends Component {
             "filter": `invert(${this.invert(this.props.audioProfile[40], 1)}%)`
           }}></img>
         <div className="meterContainer" style={{
-        "filter": `invert(${this.invert(this.props.audioProfile[40], 1)}%)`
-      }}>
-          {wordsString.slice(this.state.slowTicker, this.state.slowTicker+64).split("").map((letter, index) => <div key={index} className="meterBlur" style={{"left":`${this.props.audioProfile[index] * 10 - 1280}px`, "top":`${index*30}px`, "position":"absolute" }}> <h1>{letter}</h1></div>)}
+            "filter": `invert(${this.invert(this.props.audioProfile[40], 1)}%)`
+          }}>
+          {wordsString.slice(this.state.slowTicker, this.state.slowTicker+40).split("").map((letter, index) => <div key={index} className="meterBlur" style={{"left":`${this.props.audioProfile[index] * 10 - 1280}px`, "top":`${index*30}px`, "position":"absolute" }}> <h1>{letter}</h1></div>)}
         </div>
 
         <div style={{
-            "filter": `invert(${this.invert(this.props.audioProfile[40], 0)}%)`
+            "filter": `invert(${this.invert(this.state.bgFade, 0)}%)`
           }}>
         </div>
         <div className='back' style={{
-            "filter": `invert(${this.invert(this.props.audioProfile[40], 0)}%)`
+            "filter": `invert(${this.invert(this.state.bgFade, 0)}%)`
           }}>
-
         </div>
       </div>
 

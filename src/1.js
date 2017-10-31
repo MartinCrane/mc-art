@@ -50,3 +50,23 @@
   "left":`1500px`
 }}>
 </div>
+<div className='back2' style={{
+    "filter": `invert(${this.invert(this.state.bgFade, 0)}%)`
+  }}>
+</div>
+
+<img className="slowImage"
+  src="/image/t4.jpg" style={{
+    "filter": `invert(${this.invert(this.props.audioProfile[40], 1)}%) contrast(${this.invert(this.props.audioProfile[20], 0)}%) blur(${this.state.slowTicker/2}px) saturate(${100 + (this.state.slowTicker*2)}%)`,
+    "transform" : `scale(${this.state.slowTicker * .1})`
+}}></img>
+<img className="slowImage"
+  src="/image/t2.jpg" style={{
+    "filter": `invert(${this.invert(this.props.audioProfile[40], 1)}%) contrast(${this.invert(this.props.audioProfile[20], 0)}%) blur(${this.state.slowTicker/2}px) saturate(${100 + (this.state.slowTicker*2)}%)`,
+    "transform" : `scale(${this.state.slowTicker - 50 * .1})`,
+    "zIndex" : "-1"
+}}></img>
+
+<div className="slowWords" style={{"zIndex":"11", "filter" : `blur(${((this.props.audioProfile[25]-128)*10)+5}px)`}}>
+  {wordsString.slice(this.state.slowTicker, this.state.slowTicker+60).split("").map((letter, index) => <div key={index} className="meterBlur" style={{"top":`${this.props.audioProfile[index] * 10 - 1280}px`, "left":`${index*30}px`, "position":"absolute" }}> <h1>{letter}</h1></div>)}
+</div>
