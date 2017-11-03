@@ -51,3 +51,40 @@
 }}>
 
 </div>
+
+
+    var analyize = () => {
+      console.log("go")
+
+    }
+
+    var intervalSetter = window.setInterval(analyize, 32);
+    clearInterval(intervalSetter)
+
+
+    <div className={this.state.current === '4' ? "m4" : "bgoff"}
+      >
+      <ConnectedReactAudioPlayer
+        src="https://s3.amazonaws.com/www.martincrane.net/audio/maximal-4.m4a"
+        currentTrack={this.state.current}
+        title='4'
+        >
+     </ConnectedReactAudioPlayer>
+     <div className="m3words" style={{"left":`${this.props.audioProfile[20]*4}px`, "top":`${300 + this.state.random*2}px`}}>
+       <h1 style={{"font-size":"9em"}}>{shift}</h1>
+     </div>
+    </div>
+
+    <div className="m3words" style={{"left":`${this.props.audioProfile[40]*4}px`,
+                                     "top":`${500 + this.state.random/2}px`,
+                                     "filter":`blur(${((this.props.audioProfile[20]-128)*10)+50}px)`,
+                                     "background-color":`rgba(050, 200, 300, 1)`}}
+                             key="m32">
+      <h1>{shift}</h1>
+    </div>
+    <div className="m3words" style={{"left":`${400 + this.state.random*5}px`,
+                                     "top":`${this.props.audioProfile[10]*4}px`,
+                                     "filter":`blur(${((this.props.audioProfile[10]-128)*10)+7}px)`,
+                                     "background-color":`rgba(200, 250, 300, 1)`}}
+                             key="m33">
+      <h1>{shift}</h1>

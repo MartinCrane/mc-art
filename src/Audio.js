@@ -9,12 +9,13 @@ class ReactAudioPlayer extends React.Component {
   constructor() {
     super()
     this.state = {
+      play: false,
       frequencyData: null
     }
   }
 
   componentDidMount() {
-    const audio = this.audioEl;
+    const audio = this.audio;
 
     audio.addEventListener('error', (e) => {
       this.props.onError(e);
@@ -31,10 +32,16 @@ class ReactAudioPlayer extends React.Component {
     });
 
     // When audio play starts
-    audio.addEventListener('play', (e) => {
+    audio.addEventListener('play', (e, int) => {
+      this.interval = setInterval(analyize, 32);
       this.setListenTrack();
       this.props.onPlay(e);
     });
+
+    var analyize = () => {
+      analyser.getByteTimeDomainData(dataArray)
+      this.props.updateFreq(dataArray)
+    }
 
     // When unloading the audio player (switching to another src)
     audio.addEventListener('abort', (e) => {
@@ -44,12 +51,14 @@ class ReactAudioPlayer extends React.Component {
 
     // When the file has finished playing to the end
     audio.addEventListener('ended', (e) => {
+      clearInterval(this.interval)
       this.clearListenTrack();
       this.props.onEnded(e);
     });
 
     // When the user pauses playback
     audio.addEventListener('pause', (e) => {
+      clearInterval(this.interval)
       this.clearListenTrack();
       this.props.onPause(e);
     });
@@ -62,7 +71,9 @@ class ReactAudioPlayer extends React.Component {
     audio.addEventListener('loadedmetadata', (e) => {
       this.props.onLoadedMetadata(e);
     });
-
+    /**
+     * Set the analyizer and buffer length
+     */
     var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     audio.crossOrigin = "anonymous"
     var audioSrc = audioCtx.createMediaElementSource(audio)
@@ -75,13 +86,46 @@ class ReactAudioPlayer extends React.Component {
     var dataArray = new Uint8Array(bufferLength);
     analyser.minDecibels = -90;
     analyser.maxDecibels = -10;
-    analyser.smoothingTimeConstant = 0.85;
-
-    setInterval(() => {
-      analyser.getByteTimeDomainData(dataArray)
-      this.props.updateFreq(dataArray)
-    }, 32)
+    if (this.props.currentTrack === this.audio.title) {
+      this.audio.play();
+    } else {
+      this.audio.pause();
+    }
   }
+
+  fadeOut() {
+    var fade = setInterval(() => {
+        if (this.audio.volume < .011) {
+            this.audio.pause()
+            clearInterval(fade);
+          } else {
+            this.audio.volume -= .01;
+          }
+    }, 10);
+  }
+
+  fadeIn() {
+    this.audio.volume = 0
+    this.audio.play()
+    var fade = setInterval(() => {
+        if (this.audio.volume > .989) {
+            this.audio.volume = 1
+            clearInterval(fade);
+
+        } else {
+          this.audio.volume += .01;
+        }
+    }, 10);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log("title: " + this.audio.title + "    current: " + nextProps.currentTrack)
+    if (this.audio.title === nextProps.currentTrack) {
+      this.fadeIn()
+    } else {
+      this.fadeOut();
+    }
+  };
 
   /**
    * Set an interval to call props.onListen every props.listenInterval time period
@@ -90,7 +134,7 @@ class ReactAudioPlayer extends React.Component {
     if (!this.listenTracker) {
       const listenInterval = this.props.listenInterval;
       this.listenTracker = setInterval(() => {
-        this.props.onListen(this.audioEl.currentTime);
+        this.props.onListen(this.audio.currentTime);
       }, listenInterval);
     }
   }
@@ -126,7 +170,7 @@ class ReactAudioPlayer extends React.Component {
         muted={this.props.muted}
         onPlay={this.onPlay}
         preload={this.props.preload}
-        ref={(ref) => { this.audioEl = ref; }}
+        ref={(ref) => { this.audio = ref; }}
         src={this.props.src}
         style={this.props.style}
         title={title}
@@ -155,6 +199,7 @@ ReactAudioPlayer.defaultProps = {
   onPlay: () => {},
   onSeeked: () => {},
   onLoadedMetadata: () => {},
+  currentTrack: '0',
   preload: 'metadata',
   src: null,
   style: {},
@@ -177,6 +222,7 @@ ReactAudioPlayer.propTypes = {
   onListen: PropTypes.func,
   onPause: PropTypes.func,
   onPlay: PropTypes.func,
+  currentTrack: PropTypes.string,
   onSeeked: PropTypes.func,
   onLoadedMetadata: PropTypes.func,
   preload: PropTypes.oneOf(['', 'none', 'metadata', 'auto']),
