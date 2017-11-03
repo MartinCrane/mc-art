@@ -102,34 +102,36 @@ class App extends Component {
     return (
       <div className="drift" >
 
-        <header className="App-header" onClick={e => this.handleClick(e)}>
+        <div className="menu" onClick={e => this.handleClick(e)}>
           <h1 data-id="1" >1</h1>
           <h1 data-id="2" >2</h1>
           <h1 data-id="3" >3</h1>
           <h1 data-id="4" >4</h1>
-        </header>
+        </div>
 
         <div className={this.state.current === '1' ? this.fadeIn() : this.fadeOut()}
           >
-          <ConnectedReactAudioPlayer
-            src="https://s3.amazonaws.com/www.martincrane.net/audio/maximal-1.m4a"
-            currentTrack={this.state.current}
-            title='1'
-            controls
-            >
-         </ConnectedReactAudioPlayer>
-          <div className="m1meterContainer" style={{
-              "filter": `invert(${this.invert(this.props.audioProfile[40], 1)}%)`
-            }}>
-            {wordsString.slice(this.state.slowTicker, this.state.slowTicker+40).split("").map((letter, index) => <div key={index} className="m1MeterBlur" style={{"left":`${this.props.audioProfile[index] * 10 - 1280}px`, "top":`${index*30}px`, "position":"absolute" }}> <h1>{letter}</h1></div>)}
-          </div>
-          <div style={{
-              "filter": `invert(${this.invert(this.state.bgFade, 0)}%)`
-            }}>
-          </div>
-          <div className='m1back' style={{
-              "filter": `invert(${this.invert(this.state.bgFade, 0)}%)`
-            }}>
+          <div className="wrapper">
+            <ConnectedReactAudioPlayer
+              src="https://s3.amazonaws.com/www.martincrane.net/audio/maximal-1.m4a"
+              currentTrack={this.state.current}
+              title='1'
+
+              >
+           </ConnectedReactAudioPlayer>
+            <div className="m1meterContainer" style={{
+                "filter": `invert(${this.invert(this.props.audioProfile[40], 1)}%)`
+              }}>
+              {wordsString.slice(this.state.slowTicker, this.state.slowTicker+40).split("").map((letter, index) => <div key={index} className="m1MeterBlur" style={{"left":`${this.props.audioProfile[index] * 10 - 1280}px`, "top":`${index*30}px`, "position":"absolute" }}> <h1>{letter}</h1></div>)}
+            </div>
+            <div style={{
+                "filter": `invert(${this.invert(this.state.bgFade, 0)}%)`
+              }}>
+            </div>
+            <div className='m1back' style={{
+                "filter": `invert(${this.invert(this.state.bgFade, 0)}%)`
+              }}>
+            </div>
           </div>
         </div>
 
@@ -140,7 +142,7 @@ class App extends Component {
             src="https://s3.amazonaws.com/www.martincrane.net/audio/maximal-2.m4a"
             currentTrack={this.state.current}
             title='2'
-            controls
+
             >
          </ConnectedReactAudioPlayer>
           <div className="m2wrapper">
@@ -173,7 +175,7 @@ class App extends Component {
             src="https://s3.amazonaws.com/www.martincrane.net/audio/maximal-3.m4a"
             currentTrack={this.state.current}
             title='3'
-            controls
+
             >
          </ConnectedReactAudioPlayer>
 
@@ -193,7 +195,7 @@ class App extends Component {
           <ConnectedReactAudioPlayer
             src="https://s3.amazonaws.com/www.martincrane.net/audio/maximal-4.m4a"
             currentTrack={this.state.current}
-            controls
+
             title='4'
             >
          </ConnectedReactAudioPlayer>

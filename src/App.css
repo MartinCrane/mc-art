@@ -6,6 +6,18 @@
 .pageOff {
   display: none;
 }
+.menu {
+  position:absolute;
+  top: 1vh;
+  left:1vw;
+  z-index: 22;
+}
+.menu h1 {
+  text-shadow: 2px 2px #ff0000;
+}
+.menu h1:hover {
+  cursor: cell;
+}
 
 .slowOff {
   filter: opacity(0);
@@ -20,7 +32,6 @@
           transition-timing-function: ease-out;
 }
 .slowOn {
-
   filter: opacity(1);
   -webkit-transition: all 1s;
      -moz-transition: all 1s;
