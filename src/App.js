@@ -91,7 +91,6 @@ class App extends Component {
           }}>
           {wordsString.slice(this.state.slowTicker, this.state.slowTicker+40).split("").map((letter, index) => <div key={index} className="meterBlur" style={{"left":`${this.props.audioProfile[index] * 10 - 1280}px`, "top":`${index*30}px`, "position":"absolute" }}> <h1>{letter}</h1></div>)}
         </div>
-
         <div style={{
             "filter": `invert(${this.invert(this.state.bgFade, 0)}%)`
           }}>
@@ -100,6 +99,7 @@ class App extends Component {
             "filter": `invert(${this.invert(this.state.bgFade, 0)}%)`
           }}>
         </div>
+        
       </div>
 
     );

@@ -93,14 +93,14 @@
       -ms-transition: all .7s;
        -o-transition: all .7s;
           transition: all .7s;
-
 }
 .slow2 {
   width: 600px;
   background-color: white;
   position: absolute;
   height: 600px;
-
+  opacity: .9;
+  z-index: 1;
   top:50%;
   margin-top: -250px;
   -webkit-transition: all .5s;
@@ -112,6 +112,18 @@
      -moz-transition-timing-function: ease-out;
        -o-transition-timing-function: ease-out;
           transition-timing-function: ease-out;
+}
+.slowColorBack {
+  width: 100%;
+  background-color: blue;
+  z-index: -1;
+  height: 600px;
+  position: absolute;
+  top:50%;
+  left:50%;
+  margin-top: -250px;
+  margin-left: -850px;
+  filter: blur(4px);
 }
 .slowWords {
   top:50%;

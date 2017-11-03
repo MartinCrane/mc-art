@@ -26,7 +26,6 @@ class App extends Component {
     setInterval(() => {
     this.setState({
       random: Math.floor( (Math.random()*100)+1),
-      ticker: this.state.ticker + (Math.random() * interval)
       })
     }, 32)
   }
@@ -49,10 +48,10 @@ class App extends Component {
             "height" : `100%`,
             "backgroundColor" : `black`,
             "position" : `absolute`,
-            "zIndex" : `-1`,
+            "zIndex" : `-3`,
           }}></div>
         <div className="slow2" style={{
-            "filter" : `blur(${((this.props.audioProfile[4]-128)*10)+5 +Math.floor(this.state.ticker)}px)`,
+            "filter" : `blur(${((this.props.audioProfile[4]-128)*10)+5}px)`,
             "left" : "50%",
             "marginLeft" : "-850px",
           }}>
@@ -68,6 +67,8 @@ class App extends Component {
             "left" : "50%",
             "marginLeft" : "150px",
           }}>
+        </div>
+        <div className='slowColorBack'>
         </div>
       </div>
     );
